@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="localization" type="fake_localization.py" name="robot_localization"  output="screen"/>
+</launch>
