@@ -10,4 +10,4 @@ sleep 5
 roslaunch robot_urdf rviz_model.launch &
 roslaunch pose_ekf pose_ekf.launch &
 roslaunch depth_to_laser depth_to_laser.launch &
-rosrun gmapping slam_gmapping scan:=scan
+roslaunch mapping mapping.launch

@@ -3,7 +3,13 @@
   <remap from="camera_info" to="d435/depth/camera_info"/>
   <remap from="image" to="d435/depth/image_rect_raw"/>
 
+  <remap from="scan" to="d435/scan"/>
+
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
     <param name="output_frame_id" value="d435_link"/>
+    <param name="scan_height" value="10"/> <!-- Original = 1 -->
+    <param name="scan_time" value="0.033"/>
+    <param name="range_min" value="0.11"/>
+    <param name="range_max" value="10.0"/>
   </node>
 </launch>
