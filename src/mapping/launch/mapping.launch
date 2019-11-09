@@ -1,5 +1,5 @@
 <launch>
-  <arg name="scan_topic" default="d435/scan" />
+  <arg name="scan_topic" default="scan" />
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
 

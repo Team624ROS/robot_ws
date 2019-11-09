@@ -12,6 +12,4 @@
     <param name="debug" value="false"/>
     <param name="self_diagnose" value="false"/>
   </node>
-
-  <node pkg="tf" type="static_transform_publisher" name="base_to_foot" args="0 0 0 0 0 0 1  /base_footprint /base_link  100"/>
 </launch>
