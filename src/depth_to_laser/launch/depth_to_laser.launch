@@ -7,7 +7,7 @@
 
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
     <param name="output_frame_id" value="d435_link"/>
-    <param name="scan_height" value="1"/> <!-- Original = 1 -->
+    <param name="scan_height" value="200"/> <!-- Original = 1 -->
     <param name="scan_time" value="0.033"/>
     <param name="range_min" value="0.11"/>
     <param name="range_max" value="10.0"/>
