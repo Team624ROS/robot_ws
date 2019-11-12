@@ -1,5 +1,5 @@
 <launch>
-  <arg name="scan_topic" default="/d435/scan" /> <!--rplidar/scan-->
+  <arg name="scan_topic" default="/scan_multi" />
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
 

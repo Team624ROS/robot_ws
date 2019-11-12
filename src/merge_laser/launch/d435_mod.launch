@@ -1,0 +1,4 @@
+<launch>
+     <node pkg="merge_laser" name="d435_mod" type="d435_mod.py" output="screen">
+    </node>
+</launch>

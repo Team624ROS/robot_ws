@@ -3,7 +3,7 @@
   <remap from="camera_info" to="d435/depth/camera_info"/>
   <remap from="image" to="d435/depth/image_rect_raw"/>
 
-  <remap from="scan" to="d435/scan"/>
+  <remap from="scan" to="d435/raw/scan"/>
 
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
     <param name="output_frame_id" value="d435_link"/>

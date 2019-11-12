@@ -10,4 +10,8 @@ sleep 5
 roslaunch robot_urdf rviz_model.launch &
 roslaunch pose_ekf pose_ekf.launch &
 roslaunch depth_to_laser depth_to_laser.launch &
+roslaunch merge_laser d435_mod.launch &
+sleep 5
+roslaunch merge_laser merge_laser.launch & 
+sleep 6
 roslaunch mapping mapping.launch
