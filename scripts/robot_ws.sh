@@ -12,10 +12,10 @@ roslaunch pose_ekf pose_ekf.launch &
 roslaunch depth_to_laser depth_to_laser.launch &
 roslaunch merge_laser d435_mod.launch &
 sleep 5
-roslaunch merge_laser merge_laser.launch #& 
+roslaunch merge_laser merge_laser.launch & 
 #sleep 6
 
 #roslaunch mapping mapping.launch
 
-#roslaunch mapping map_server.launch # Change file directories for your computer
-#roslaunch localization amcl.launch
+roslaunch mapping map_server.launch & # Change file directories for your computer
+roslaunch localization amcl.launch
