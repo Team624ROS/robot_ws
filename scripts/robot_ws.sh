@@ -12,10 +12,15 @@ roslaunch pose_ekf pose_ekf.launch &
 roslaunch depth_to_laser depth_to_laser.launch & # MAKE SURE TO AGJUST SAMPLE OF DEPTH BASED ON HIEGHT OF CAM
 roslaunch merge_laser d435_mod.launch &
 sleep 5
-roslaunch merge_laser merge_laser.launch & 
-sleep 3
+roslaunch merge_laser merge_laser.launch &
+#sleep 3
 
-roslaunch mapping mapping.launch
+#roslaunch mapping mapping.launch &
 
 #roslaunch mapping map_server.launch & # Change file directories for your computer
-#roslaunch localization amcl.launch
+#roslaunch localization amcl.launch &
+
+# LIMIT DATA
+rosrun topic_tools throttle messages /map 0.5 &
+rosrun topic_tools throttle messages /scan_multi 1.0 &
+rosrun topic_tools throttle messages /particlecloud 1.0

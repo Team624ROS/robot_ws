@@ -182,7 +182,7 @@
     <parent link="base_link"/>
     <child link="t265_pose_frame"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0.2159 0 .2"/>
+    <origin xyz="-0.1524 0 .2"/>
   </joint>
 
   <link name="d435_link">
@@ -209,7 +209,7 @@
     <parent link="base_link"/>
     <child link="d435_link"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0.2159 0 0.2508"/>
+    <origin xyz="-0.1524 0 0.2508"/>
   </joint>
 
   <link name="laser">
@@ -236,7 +236,7 @@
     <parent link="base_link"/>
     <child link="laser"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0.2159 0 0.2508" rpy="0 0 3.1415"/>
+    <origin xyz="-0.1524 0 0.2508" rpy="0 0 3.1415"/>
   </joint>
 
 </robot>
