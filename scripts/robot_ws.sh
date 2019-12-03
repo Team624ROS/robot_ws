@@ -8,7 +8,7 @@ sleep 5
 
 # Start realsense
 roslaunch robot_urdf rviz_model.launch &  # MAKE SURE TO CHANGE SENSOR POSITION AND ANGLE!!!
-roslaunch pose_ekf pose_ekf.launch &
+#roslaunch pose_ekf pose_ekf.launch &
 roslaunch depth_to_laser depth_to_laser.launch & # MAKE SURE TO AGJUST SAMPLE OF DEPTH BASED ON HIEGHT OF CAM
 roslaunch merge_laser d435_mod.launch &
 sleep 5
