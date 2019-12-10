@@ -158,33 +158,6 @@
   </joint>
 
   <!-- Sensors -->
-  <link name="t265_odom_frame">
-    <visual>
-      <geometry>
-        <cylinder length="${camWidth}" radius="${camRadius}"/>
-      </geometry>
-      <origin rpy="0 1.57075 1.57075" xyz="0 0 0"/>
-      <material name="white"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="${camWidth}" radius="${camRadius}"/>
-      </geometry>
-      <origin rpy="0 1.57075 1.57075" xyz="0 0 0"/>
-    </collision>
-    <inertial>
-      <mass value="${camMass}"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
-    </inertial>
-  </link>
-
-  <joint name="base_to_t265_odom_frame" type="fixed">
-    <parent link="base_link"/>
-    <child link="t265_odom_frame"/>
-    <axis xyz="0 1 0"/>
-    <origin xyz="0.1524 0 .2"/>
-  </joint>
-
 
   <link name="t265_pose_frame">
     <visual>
@@ -207,10 +180,10 @@
   </link>
 
   <joint name="base_to_t265_pose_frame" type="fixed">
-    <parent link="t265_odom_frame"/>
-    <child link="t265_pose_frame"/>
+    <parent link="t265_pose_frame"/>
+    <child link="base_link"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0 0 0"/>
+    <origin xyz="-0.1524 0 -0.2"/>
   </joint>
 
 
