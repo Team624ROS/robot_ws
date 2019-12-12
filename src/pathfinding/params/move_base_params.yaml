@@ -1,4 +1,4 @@
-controller_frequency: 1.0 # Needs to change  
+controller_frequency: 20 # Needs to change  
 recovery_behaviour_enabled: true
 
 NavfnROS:

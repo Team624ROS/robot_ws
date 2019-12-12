@@ -17,8 +17,8 @@ roslaunch merge_laser merge_laser.launch &
 
 #roslaunch mapping mapping.launch &
 
-#roslaunch mapping map_server.launch & # Change file directories for your computer
-#roslaunch localization amcl.launch &
+roslaunch mapping map_server.launch & # Change file directories for your computer
+roslaunch localization amcl.launch &
 
 # LIMIT DATA
 rosrun topic_tools throttle messages /map 0.5 &
