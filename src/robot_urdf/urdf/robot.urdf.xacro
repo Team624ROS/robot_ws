@@ -14,9 +14,9 @@
     <color rgba="0 1 0 0.5"/>
   </material>
 
-  <xacro:property name="baseLength" value="0.8255" />
-  <xacro:property name="baseWidth" value="0.6985" />
-  <xacro:property name="baseHeight" value="0.1" />
+  <xacro:property name="baseLength" value="0.8636" />
+  <xacro:property name="baseWidth" value="0.9652" />
+  <xacro:property name="baseHeight" value="0.6096" />
 
   <xacro:property name="baseMass" value="27" />
   <xacro:property name="wheelMass" value="0.453592" />
@@ -37,11 +37,13 @@
         <box size="${baseLength} ${baseWidth} ${baseHeight}"/>
       </geometry>
       <material name="blue"/>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
     </visual>
     <collision>
       <geometry>
         <box size="${baseLength} ${baseWidth} ${baseHeight}"/>
       </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
     </collision>
     <inertial>
       <mass value="${baseMass}"/>
@@ -183,7 +185,7 @@
     <parent link="t265_pose_frame"/>
     <child link="base_link"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="-0.1524 0 -0.2"/>
+    <origin xyz="-0.381 0 -0.5842"/>
   </joint>
 
 
@@ -211,7 +213,7 @@
     <parent link="base_link"/>
     <child link="d435_link"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0.1524 0 0.2508"/>
+    <origin xyz="0.381 0 0.6223"/>
   </joint>
 
   <link name="laser">
@@ -238,7 +240,7 @@
     <parent link="base_link"/>
     <child link="laser"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0.127 0 0.2508" rpy="0 0 3.1415"/>
+    <origin xyz="0.381 0 0.66" rpy="0 0 3.1415"/>
   </joint>
 
 </robot>
