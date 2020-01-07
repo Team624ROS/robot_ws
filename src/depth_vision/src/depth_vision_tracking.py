@@ -1,8 +1,48 @@
+#!/usr/bin/env python
+from __future__ import print_function
+
 import cv2
 from matplotlib import pyplot as plt
 import numpy as np
-from components.color_filter import ColorFilter
-from components.contour_detector import contour_detect
+import roslib
+import sys
+import rospy
+from std_msgs.msg import String
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
+#from components.color_filter import ColorFilter
+#from components.contour_detector import contour_detect
+
+class DepthVisionTracking:
+
+  def __init__(self):
+    self.bridge = CvBridge()
+    self.image_sub = rospy.Subscriber("camera/color/image_raw",Image,self.callback)
+
+  def callback(self,data):
+    try:
+      cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+    except CvBridgeError as e:
+      print(e)
+
+    (rows,cols,channels) = cv_image.shape
+
+    cv2.imshow("Image window", cv_image)
+    cv2.waitKey(3)
+
+def main(args):
+  dvt = DepthVisionTracking()
+  rospy.init_node('Depth Image ', anonymous=True)
+  try:
+    rospy.spin()
+  except KeyboardInterrupt:
+    print("Shutting down")
+  cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main(sys.argv)
+
+'''
 cv2 = cv2.cv2
 
 cf = ColorFilter()
@@ -18,7 +58,6 @@ count_running = 0
 
 # Main loop
 while True:
-
     # Get Frames from Camera
     ret,frame = cap.read()
 
@@ -63,3 +102,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+'''
