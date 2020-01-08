@@ -11,7 +11,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from color_filter import ColorFilter
-from contour_detector import contour_detect
+from contour_detector import ContourDetect
 
 class DepthVisionTracking:
 
@@ -19,6 +19,10 @@ class DepthVisionTracking:
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("camera/color/image_raw",Image,self.callback)
     self.cf = ColorFilter()
+    self.cd = ContourDetect()
+
+    # Subscribe to ros topic to tell if it should track
+    self.is_tracking = True
 
   def callback(self,data):
     try:
@@ -36,7 +40,7 @@ class DepthVisionTracking:
     cv2.imshow('Image window', mask)
     cv2.imshow('Image', cv_image)
 
-    contour_detect(mask.copy())
+    self.cd.contour_detect(mask.copy(), self.is_tracking)
 
     cv2.waitKey(3)
 
