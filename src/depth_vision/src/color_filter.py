@@ -2,12 +2,13 @@ import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 
-cv2 = cv2.cv2
 class ColorFilter:
+    def __init__(self):
+        pass
 
     def color_filter(self,frame,color_low,color_high,output):
 
-        frame = cv2.GaussianBlur(frame, (11,11),0)
+        frame = cv2.GaussianBlur(frame, (5,5),0)
 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         #kernel = np.ones((60,60),np.uint8)

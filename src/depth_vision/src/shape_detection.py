@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-cv2 = cv2.cv2
 
 class DetectShape:
 
@@ -12,10 +11,9 @@ class DetectShape:
         shape = "None"
         peri = perimeter
         approx = cv2.approxPolyDP(contour,0.04 * peri, True)
-        print(len(approx))
-        
-        if len(approx) == 4:
-            shape = "rectangle"
 
+        if (len(approx) == 7 or 6):
+            return True
+        else:
+            return False
 
-        return shape
