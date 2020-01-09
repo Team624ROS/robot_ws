@@ -59,10 +59,10 @@ class ContourDetect:
                 (x,y,w,h) = cv2.boundingRect(biggest_contour)
                 cv2.rectangle(mask, (x ,y - h), (x + w, y + h), (255, 0, 0), 2)
 
-                cv2.circle(mask, (self.get_center(x, y-h, x + w, y + h).x, self.get_center(x, y-h, x + w, y + h).y), 2, (255, 0, 0))
+                cv2.circle(mask, (self.get_center(x, y+h,w, h).x, self.get_center(x, y-h, w, h).y), 10, (255, 0, 0))
 
-                self.get_x_offset(self.get_center(x, y-h, x + w, y + h).x)
-                self.get_y_offset(self.get_center(x, y-h, x + w, y + h).y)
+                self.get_x_offset(self.get_center(x, y-h, w, h).x)
+                self.get_y_offset(self.get_center(x, y-h, w, h).y)
 
                 self.last_x = x
                 self.last_y = y
@@ -75,7 +75,7 @@ class ContourDetect:
         cv2.imshow('Contour image',mask)
 
     def get_center(self, x, y, w, h):
-        return Point(x + (w/2), y + (h/2))
+        return Point(x + (w/2), y + h)
 
     def get_x_offset(self, x):
         pass
