@@ -24,6 +24,9 @@ class DepthVisionTracking:
     # Subscribe to ros topic to tell if it should track
     self.is_tracking = True
 
+    # Subscribe to ros topic to see if user wants to turn off target_lock
+    self.lock_target = True
+
   def callback(self,data):
     try:
       cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
@@ -40,7 +43,11 @@ class DepthVisionTracking:
     cv2.imshow('Image window', mask)
     cv2.imshow('Image', cv_image)
 
-    self.cd.contour_detect(mask.copy(), self.is_tracking)
+    self.cd.contour_detect(mask.copy(), self.is_tracking, self.lock_target)
+
+    # Used for turret PID
+    angular_feedback = self.cd.get_angular_pid().feedback
+    angular_setpoint = self.cd.get_angular_pid().setpoint
 
     cv2.waitKey(3)
 
