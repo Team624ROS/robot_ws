@@ -10,6 +10,7 @@ import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+
 from color_filter import ColorFilter
 from contour_detector import ContourDetect
 
@@ -33,21 +34,22 @@ class DepthVisionTracking:
     except CvBridgeError as e:
       print(e)
 
-    (rows,cols,channels) = cv_image.shape
+    #(rows,cols,channels) = cv_image.shape
 
     # Color Filter the Video Stream (For Green)
-    hsv_frame = self.cf.color_filter(cv_image,[50, 100,100],[80, 255,255],"res")
     mask = self.cf.color_filter(cv_image,[50, 125,125],[90, 255,255],"mask")
-    gray = self.cf.color_filter(cv_image,[50, 100,100],[80, 255,255],"gray")
     
-    cv2.imshow('Image window', mask)
-    cv2.imshow('Image', cv_image)
+    #cv2.imshow('Image window', mask)
+    #cv2.imshow('Image', cv_image)
 
     self.cd.contour_detect(mask.copy(), self.is_tracking, self.lock_target)
 
     # Used for turret PID
     angular_feedback = self.cd.get_angular_pid().feedback
     angular_setpoint = self.cd.get_angular_pid().setpoint
+
+    # Get Distance
+    
 
     cv2.waitKey(3)
 

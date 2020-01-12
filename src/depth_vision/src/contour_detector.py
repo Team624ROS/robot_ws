@@ -13,8 +13,6 @@ class ContourDetect:
         # Change if camera is not in line with shooter
         self.camera_offset = 0
 
-        # Do not change will update in script (Current offset from "center" of frame)
-
         # Feedback of PID
         self.x_offset = 0
         self.wanted_x = 0
@@ -47,58 +45,47 @@ class ContourDetect:
             # List of all raw contours includes noise
             _, contours, _= cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-            # Where we eliminate some of the noise
-            contour_list = []
+            # Where we eliminate some of the shape noise
+            contour_shape = []
 
-            # Loops through all contours and filters them by shape
-            for contour in contours:
-                area = cv2.contourArea(contour)
-                perimeter = cv2.arcLength(contour,True)
+            # Filters
+            if (len(contours) >= 1):
 
                 # Filters by shape
-                if (self.detect_shape.detect(contour, perimeter)):
-                    contour_list.append(contour)
+                for contour in contours:
+                    perimeter = cv2.arcLength(contour,True)
 
-            if (len(contour_list) >= 1):
-                biggest_contour = contour[0]
-                target_contour = False
+                    if (self.detect_shape.detect(contour, perimeter)):
+                        contour_shape.append(contour)
 
-                # Loops through filtered list to filter more
-                for contour in contour_list:
-                    (x,y,w,h) = cv2.boundingRect(contour)
-                    
-                    # Checks if it is locked on target
-                    if (self.lock_target and user_lock_target):
-                        if (x < self.last_x + self.x_threshold and x > self.last_x - self.x_threshold):
-                            if (y < self.last_y + self.y_threshold and y > self.last_y - self.y_threshold):
-                                if (cv2.contourArea(contour) > cv2.contourArea(biggest_contour)):
-                                    biggest_contour = contour
-                                    target_contour = True
+                contour_biggest = [contour_shape[0]]
 
-                    elif (cv2.contourArea(contour) > cv2.contourArea(biggest_contour)):
-                        biggest_contour = contour
-                        self.lock_target = True
-                        target_contour = True
+                # Filter by biggest contour
+                if (len(contour_shape) >= 1):
+                    for contour in contour_shape:
+                        (x, y, w, h) = cv2.boundingRect(contour)
+                        (big_x, big_y, big_w, big_h) = cv2.boundingRect(contour_biggest[0])
+                        area = self.get_area(w,h)
+                        biggest_area = self.get_area(big_w, big_h) 
+                        if (area > biggest_area):
+                            contour_biggest = []
+                            contour_biggest.append(contour)
 
-            if (len(contour_list) >= 1 and target_contour):
-                (x,y,w,h) = cv2.boundingRect(biggest_contour)
-                cv2.rectangle(mask, (x ,y - h), (x + w, y + h), (255, 0, 0), 2)
+                if (len(contour_biggest) >= 1):
+                    (x,y,w,h) = cv2.boundingRect(contour_biggest[0])
+                    cv2.rectangle(mask, (x ,y - h), (x + w, y + h), (255, 0, 0), 2)
 
-                cv2.circle(mask, (self.get_center(x, y+h,w, h).x, self.get_center(x, y-h, w, h).y), 10, (255, 0, 0))
+                    cv2.circle(mask, (self.get_center(x, y+h,w, h).x, self.get_center(x, y-h, w, h).y), 10, (255, 0, 0))
 
-                self.x_offset = self.get_x_offset(self.get_center(x, y-h, w, h).x, width)
-                self.y_offset = self.get_y_offset(self.get_center(x, y-h, w, h).y, height)
+                    self.x_offset = self.get_x_offset(self.get_center(x, y-h, w, h).x, width)
+                    self.y_offset = self.get_y_offset(self.get_center(x, y-h, w, h).y, height)
 
-                print(self.x_offset, self.y_offset)
+                    distance = self.get_distance(self.y_offset)
 
-                self.last_x = x
-                self.last_y = y
+                    print (distance)
 
-            else:
-                self.lock_target = False
-
-        else:
-            self.lock_target = False
+                    self.last_x = x
+                    self.last_y = y
 
         cv2.imshow('Contour image',mask)
 
@@ -113,6 +100,12 @@ class ContourDetect:
     
     def get_angular_pid(self):
         return AngularPID(self.x_offset, self.wanted_x)
+
+    def get_distance(self, y_offset):
+        return ((344.691) / (1.0 + ( 18.6969 * math.pow(math.e, -0.015734 * y_offset) )) ) + 10.6766
+    
+    def get_area(self, w, h):
+        return (w * h) * 2
 
 
 class Point:
