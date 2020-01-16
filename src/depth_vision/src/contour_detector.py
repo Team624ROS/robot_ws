@@ -117,4 +117,3 @@ class AngularPID:
     def __init__(self, x_offset, wanted_x):
         self.feedback = x_offset
         self.setpoint = wanted_x
-
